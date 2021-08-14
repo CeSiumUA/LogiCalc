@@ -19,11 +19,15 @@ namespace LogiCalc
 
         public T Load<T>()
         {
-            using (StreamReader sr = new StreamReader(fileName))
+            if (File.Exists(fileName))
             {
-                var rawText = sr.ReadToEnd();
-                return JsonConvert.DeserializeObject<T>(rawText);
+                using (StreamReader sr = new StreamReader(fileName))
+                {
+                    var rawText = sr.ReadToEnd();
+                    return JsonConvert.DeserializeObject<T>(rawText);
+                }
             }
+            return default;
         }
 
         public void Save<T>(T obj)

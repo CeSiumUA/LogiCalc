@@ -129,6 +129,7 @@ namespace LogiCalc.Core.ViewModels
         private void LoadDispoplan()
         {
             var plan = this._storageProvider.Load<Dispoplan>();
+            if (plan == null) return;
             if(plan.ActualBy.Day == DateTime.Now.Day)
             {
                 this.Dispoplan = plan;

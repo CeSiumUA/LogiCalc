@@ -5,6 +5,8 @@
     <TargetFramework>net5.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <MinimumPlatformVersion>7.0</MinimumPlatformVersion>
+    <ApplicationIcon>delivery.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
