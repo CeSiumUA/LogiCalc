@@ -51,6 +51,37 @@ namespace LogiCalc.Core.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedTo"));
             }
         }
+        private double distance { get; set; }
+        public double Distance
+        {
+            get
+            {
+                return this.distance;
+            }
+            set
+            {
+                this.distance   = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Distance"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MinimalPrice"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MaximalPrice"));
+            }
+        }
+        public double MaximalPrice
+        {
+            get
+            {
+                var route = this.Dispoplan.Routes.FirstOrDefault(x => x.To == this.SelectedTo && x.From == this.SelectedFrom);
+                return (this.Dispoplan != null && route != null) ? this.Distance * route.Maximum : 0;
+            }
+        }
+        public double MinimalPrice
+        {
+            get
+            {
+                var route = this.Dispoplan.Routes.FirstOrDefault(x => x.To == this.SelectedTo && x.From == this.SelectedFrom);
+                return (this.Dispoplan != null && route != null) ? this.Distance * route.Minimum : 0;
+            }
+        }
         public MainViewModel()
         {
             this.Dispoplan = new Dispoplan();
