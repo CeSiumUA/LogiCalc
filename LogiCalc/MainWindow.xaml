@@ -12,8 +12,11 @@
         <ComboBox ItemsSource="{Binding Path=Tos}" SelectedValue="{Binding Path=SelectedTo}" HorizontalAlignment="Left" Margin="202,35,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Откуда:" HorizontalAlignment="Left" Margin="0,9,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Куда:" HorizontalAlignment="Left" Margin="202,9,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="0,79,0,0" TextWrapping="Wrap" Text="{Binding Path=Distance}" VerticalAlignment="Top" Width="322"/>
-        <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="0,131,0,0" TextWrapping="Wrap" Text="{Binding Path=MinimalPrice, Mode=OneWay}" VerticalAlignment="Top" Width="327"/>
-        <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="0,183,0,0" TextWrapping="Wrap" Text="{Binding Path=MaximalPrice, Mode=OneWay}" VerticalAlignment="Top" Width="327"/>
+        <TextBox IsReadOnly="{Binding BlockDistanceEdit}" HorizontalAlignment="Left" Margin="0,105,0,0" TextWrapping="Wrap" Text="{Binding Path=Distance}" VerticalAlignment="Top" Width="327"/>
+        <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="0,178,0,0" TextWrapping="Wrap" Text="{Binding Path=MinimalPrice, Mode=OneWay}" VerticalAlignment="Top" Width="327"/>
+        <TextBox IsReadOnly="True" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=MaximalPrice, Mode=OneWay}" VerticalAlignment="Top" Width="327" Margin="0,271,0,0"/>
+        <Label Content="Дистанция:" HorizontalAlignment="Left" Margin="0,74,0,0" VerticalAlignment="Top" Width="327"/>
+        <Label Content="Минимальная стоимость:" HorizontalAlignment="Left" Margin="0,147,0,0" VerticalAlignment="Top" Width="327"/>
+        <Label Content="Максимальная стоимость:" HorizontalAlignment="Left" Margin="0,240,0,0" VerticalAlignment="Top" Width="327"/>
     </Grid>
 </Window>

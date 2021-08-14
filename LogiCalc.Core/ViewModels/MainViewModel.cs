@@ -36,6 +36,10 @@ namespace LogiCalc.Core.ViewModels
             {
                 this.selectedFrom = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedFrom"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BlockDistanceEdit"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Distance"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MaximalPrice"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MinimalPrice"));
             }
         }
         private string selectedTo;
@@ -49,6 +53,10 @@ namespace LogiCalc.Core.ViewModels
             {
                 this.selectedTo = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedTo"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BlockDistanceEdit"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Distance"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MaximalPrice"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MinimalPrice"));
             }
         }
         private double distance { get; set; }
@@ -80,6 +88,13 @@ namespace LogiCalc.Core.ViewModels
             {
                 var route = this.Dispoplan.Routes.FirstOrDefault(x => x.To == this.SelectedTo && x.From == this.SelectedFrom);
                 return (this.Dispoplan != null && route != null) ? this.Distance * route.Minimum : 0;
+            }
+        }
+        public bool BlockDistanceEdit
+        {
+            get
+            {
+                return string.IsNullOrEmpty(this.SelectedFrom) && string.IsNullOrEmpty(this.SelectedTo);
             }
         }
         public MainViewModel()
