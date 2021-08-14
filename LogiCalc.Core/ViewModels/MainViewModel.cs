@@ -11,6 +11,7 @@ namespace LogiCalc.Core.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         public Dispoplan Dispoplan { get; set; }
+        private readonly IStorageProvider _storageProvider;
         public string[] Froms
         {
             get
@@ -97,15 +98,48 @@ namespace LogiCalc.Core.ViewModels
                 return string.IsNullOrEmpty(this.SelectedFrom) && string.IsNullOrEmpty(this.SelectedTo);
             }
         }
-        public MainViewModel()
+        public string RawText
+        {
+            get
+            {
+                return this.Dispoplan?.RawText;
+            }
+            set
+            {
+                if(this.Dispoplan != null)
+                {
+                    this.Dispoplan.RawText = value;
+                    ChangeDispoplan(value);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("RawText"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedTo"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("From"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BlockDistanceEdit"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Distance"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MaximalPrice"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MinimalPrice"));
+                }
+            }
+        }
+        public MainViewModel(IStorageProvider storageProvider)
         {
             this.Dispoplan = new Dispoplan();
+            this._storageProvider = storageProvider;
+            this.LoadDispoplan();
+        }
+        private void LoadDispoplan()
+        {
+            var plan = this._storageProvider.Load<Dispoplan>();
+            if(plan.ActualBy.Day == DateTime.Now.Day)
+            {
+                this.Dispoplan = plan;
+            }
         }
         public void ChangeDispoplan(string rawText)
         {
             if (!string.IsNullOrEmpty(rawText))
             {
                 this.Dispoplan.FillPlan(rawText);
+                this.Dispoplan.SavePlan(this._storageProvider);
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Froms"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Tos"));

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,10 @@ namespace LogiCalc.Core.Models
     {
         public List<RouteCoefficient> Routes { get; set; } = new List<RouteCoefficient>();
         public DateTime ActualBy { get; set; } = DateTime.Now;
+        public string RawText { get; set; } = string.Empty;
         public void FillPlan(string rawText)
         {
+            this.RawText = rawText;
             this.Routes.Clear();
             rawText = rawText.Replace("  ", " ");
             var matches = Regex.Matches(rawText, "Region ([A-Za-z]{1}[0-9]{1}) - ([A-Za-z]{1}[0-9]{1}) ([0-9]{1},[0-9]{2})-([0-9]{1},[0-9]{2})").ToList();
@@ -20,6 +23,10 @@ namespace LogiCalc.Core.Models
             {
                 this.Routes.Add(new RouteCoefficient(route));
             }
+        }
+        public void SavePlan(IStorageProvider storageProvider)
+        {
+            storageProvider.Save(this);
         }
         public static Dispoplan CreateDispoplan(string rawText)
         {

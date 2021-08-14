@@ -25,7 +25,7 @@ namespace LogiCalc
         public MainWindow()
         {
             InitializeComponent();
-            this.viewModel = new MainViewModel();
+            this.viewModel = new MainViewModel(new TextFileStorageProvider());
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
